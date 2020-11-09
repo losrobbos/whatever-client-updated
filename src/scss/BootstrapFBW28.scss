@@ -43,6 +43,9 @@ nav {
 
       li {
         padding: 0 10px;
+        .selected {
+          opacity: 0.6;
+        }
         a {
           text-decoration: none;
           color: white;

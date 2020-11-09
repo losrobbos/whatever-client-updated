@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  useHistory,
 } from 'react-router-dom';
 
 import Nav from './Nav';
@@ -11,13 +12,36 @@ import SignUp from './SignUp';
 import Dashboard from './Dashboard';
 import Homepage from './Homepage';
 import NotFound from './NotFound';
+import { authenticateUser } from '../helpers/apiCalls';
+import { useEffect, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
-const App = () => {
+const App = (props) => {
+  const [
+    userInfo,
+    setUserInfo,
+    userStatus,
+    setUserStatus,
+  ] = useContext(UserContext);
+
+  useEffect(() => {
+    //Authenticate our cookie sir
+    (async function () {
+      const user = await authenticateUser();
+      if (user) {
+        setUserInfo(user);
+        setUserStatus(true);
+      }
+    })();
+  }, []);
+
+  console.log('User is logged', userStatus);
+
   return (
     <div className="app">
       <Router>
         <Nav></Nav>
-        <div class="main">
+        <div className="main">
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route

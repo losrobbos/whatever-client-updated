@@ -1,27 +1,66 @@
-import { Link } from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 const Nav = () => {
+  const [
+    userInfo,
+    setUserInfo,
+    userStatus,
+    setUserStatus,
+  ] = useContext(UserContext);
+
+  console.log('User is logged', userStatus);
   return (
     <nav>
       <ul>
         <div className="logo">
-          <Link to="/">
+          <NavLink exact to="/">
             <p>WHATEVER</p>
-          </Link>
+          </NavLink>
         </div>
         <div className="items">
           <li>
-            <Link to="/">Home</Link>
+            <NavLink
+              activeClassName="selected"
+              exact
+              to="/"
+            >
+              Home
+            </NavLink>
           </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
+          {!userStatus && (
+            <li>
+              <NavLink
+                activeClassName="selected"
+                exact
+                to="/login"
+              >
+                Login
+              </NavLink>
+            </li>
+          )}
+          {!userStatus && (
+            <li>
+              <NavLink
+                activeClassName="selected"
+                exact
+                to="/signup"
+              >
+                Sign Up
+              </NavLink>
+            </li>
+          )}
+          {userStatus && (
+            <li>
+              <NavLink
+                activeClassName="selected"
+                exact
+                to="/dashboard"
+              >
+                Dashboard
+              </NavLink>
+            </li>
+          )}
         </div>
       </ul>
     </nav>

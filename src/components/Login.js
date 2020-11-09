@@ -1,4 +1,8 @@
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { UserContext } from '../context/UserContext';
+import { loginUser } from '../helpers/apiCalls';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const {
@@ -8,7 +12,22 @@ const Login = () => {
     errors,
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const history = useHistory();
+  const [
+    userInfo,
+    setUserInfo,
+    userStatus,
+    setUserStatus,
+  ] = useContext(UserContext);
+
+  const onSubmit = (data) => {
+    const user = loginUser(data);
+    setUserInfo(user);
+    setUserStatus(true);
+    history.push('/dashboard');
+  };
+
+  if (userStatus) history.push('/dashboard');
 
   return (
     <div className="login">

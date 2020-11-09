@@ -17,17 +17,23 @@ const App = () => {
     <div className="app">
       <Router>
         <Nav></Nav>
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route
-            exact
-            path="/dashboard"
-            component={Dashboard}
-          />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/" component={Homepage} />
-          <Route path="*" component={NotFound} />
-        </Switch>
+        <div class="main">
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route
+              exact
+              path="/dashboard"
+              component={Dashboard}
+            />
+            <Route
+              exact
+              path="/signup"
+              component={SignUp}
+            />
+            <Route exact path="/" component={Homepage} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </div>
       </Router>
     </div>
   );

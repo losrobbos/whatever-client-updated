@@ -9,7 +9,6 @@ const Nav = () => {
     setUserStatus,
   ] = useContext(UserContext);
 
-  console.log('User is logged', userStatus);
   return (
     <nav>
       <ul>
@@ -42,11 +41,12 @@ const Nav = () => {
           {!userStatus && (
             <li>
               <NavLink
+                className="signUp"
                 activeClassName="selected"
                 exact
                 to="/signup"
               >
-                Sign Up
+                Signup
               </NavLink>
             </li>
           )}

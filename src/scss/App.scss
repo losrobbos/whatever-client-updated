@@ -1,6 +1,7 @@
-$color1: #251915;
-$color2: #3a2a1d;
-$color3: #a52a1f;
+$color1: #1b4062;
+$color2: rgb(25, 137, 193);
+$color3: #536a97;
+$notHorribleRed: rgb(122, 4, 4);
 
 @import 'BootstrapFBW28';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
@@ -52,9 +53,21 @@ $color3: #a52a1f;
     section {
       height: 100%;
       padding: 120px 20px 80px 20px;
+      overflow: scroll;
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+  }
+  .dashboard {
+    background: $color3;
+    color: white;
+    height: 100%;
+    section {
+      height: 100%;
+      padding: 120px 20px 80px 20px;
+      display: flex;
+      flex-direction: column;
     }
   }
 }

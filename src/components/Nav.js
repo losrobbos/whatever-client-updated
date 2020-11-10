@@ -61,6 +61,19 @@ const Nav = () => {
               </NavLink>
             </li>
           )}
+          {userStatus && (
+            <li>
+              <NavLink
+                className="avatar"
+                activeClassName="selected"
+                exact
+                to="/"
+              >
+                <img src={userInfo.avatar}></img>
+                <p>{userInfo.userName}</p>
+              </NavLink>
+            </li>
+          )}
         </div>
       </ul>
     </nav>

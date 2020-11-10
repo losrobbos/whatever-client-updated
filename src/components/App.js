@@ -12,21 +12,22 @@ import SignUp from './SignUp';
 import Dashboard from './Dashboard';
 import Homepage from './Homepage';
 import NotFound from './NotFound';
+import ErrorComponent from './ErrorComponent';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
 const App = (props) => {
-  const [
-    userInfo,
-    setUserInfo,
-    userStatus,
-    setUserStatus,
-  ] = useContext(UserContext);
+  const { error, setError } = useContext(UserContext);
+
+  const removeErrors = () => {
+    if (error.message) setError({});
+  };
 
   return (
-    <div className="app">
+    <div className="app" onClick={() => removeErrors()}>
       <Router>
         <Nav></Nav>
+        <ErrorComponent></ErrorComponent>
         <div className="main">
           <Switch>
             <Route exact path="/login" component={Login} />

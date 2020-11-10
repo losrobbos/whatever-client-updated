@@ -6,18 +6,14 @@ import { Redirect, useHistory } from 'react-router-dom';
 
 const SignUp = () => {
   const { register, handleSubmit, errors } = useForm();
-  const [
-    loginErrorMessage,
-    setLoginErrorMessage,
-  ] = useState('');
 
   const history = useHistory();
-  const [
-    userInfo,
+  const {
+    setError,
     setUserInfo,
     userStatus,
     setUserStatus,
-  ] = useContext(UserContext);
+  } = useContext(UserContext);
 
   const onSubmit = async (data) => {
     const res = await signUpUser(data);
@@ -26,7 +22,7 @@ const SignUp = () => {
       setUserStatus(true);
       history.push('/dashboard');
     } else {
-      setLoginErrorMessage(res.error.message);
+      setError({ message: res.error.message });
     }
   };
 
@@ -37,9 +33,6 @@ const SignUp = () => {
       <section>
         <h3>Sign Up</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="login-error-message">
-            {loginErrorMessage}
-          </div>
           <div className="info">
             <label>First name</label>
             <input

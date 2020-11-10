@@ -1,13 +1,31 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { logOut } from '../helpers/apiCalls';
+
 const Nav = () => {
-  const [
+  const {
     userInfo,
     setUserInfo,
     userStatus,
     setUserStatus,
-  ] = useContext(UserContext);
+    setError,
+    setSession,
+  } = useContext(UserContext);
+
+  const history = useHistory();
+  const logOutUser = async () => {
+    const res = await logOut();
+    if (!res.error) {
+      setUserInfo({});
+      setUserStatus(false);
+      history.push('/login');
+    } else {
+      setError({ message: res.error.message });
+    }
+  };
 
   return (
     <nav>
@@ -18,15 +36,6 @@ const Nav = () => {
           </NavLink>
         </div>
         <div className="items">
-          <li>
-            <NavLink
-              activeClassName="selected"
-              exact
-              to="/"
-            >
-              Home
-            </NavLink>
-          </li>
           {!userStatus && (
             <li>
               <NavLink
@@ -67,11 +76,19 @@ const Nav = () => {
                 className="avatar"
                 activeClassName="selected"
                 exact
-                to="/"
+                to="/profile" // Hey Robo, create me!
               >
                 <img src={userInfo.avatar}></img>
                 <p>{userInfo.userName}</p>
               </NavLink>
+            </li>
+          )}
+          {userStatus && (
+            <li class="signOut">
+              <FontAwesomeIcon
+                onClick={() => logOutUser()}
+                icon={faSignOutAlt}
+              />
             </li>
           )}
         </div>

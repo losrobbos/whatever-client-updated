@@ -1,6 +1,7 @@
 import home1 from '../statics/home1.png';
 import home2 from '../statics/home2.png';
 import home3 from '../statics/home3.png';
+
 const Homepage = () => {
   return (
     <div className="homepage">

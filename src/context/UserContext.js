@@ -7,10 +7,12 @@ export const UserContextProvider = (props) => {
   const [userStatus, setUserStatus] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [session, setSession] = useState(false);
+  const [error, setError] = useState({});
 
   useEffect(() => {
     //Authenticate our cookie sir
     (async function () {
+      setSession(false);
       const user = await authenticateUser();
       if (!user.error) {
         setUserInfo(user);
@@ -25,12 +27,16 @@ export const UserContextProvider = (props) => {
 
   return (
     <UserContext.Provider
-      value={[
+      value={{
         userInfo,
         setUserInfo,
         userStatus,
         setUserStatus,
-      ]}
+        session,
+        setSession,
+        error,
+        setError,
+      }}
     >
       {session && props.children}
     </UserContext.Provider>

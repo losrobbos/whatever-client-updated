@@ -14,13 +14,15 @@ export const UserContextProvider = (props) => {
     (async function () {
       setSession(false);
       const user = await authenticateUser();
+      
+      // still logged in?
       if (!user.error) {
         setUserInfo(user);
         setUserStatus(true);
       }
       setSession(true);
     })();
-  }, []);
+  }, []); // initialize context ONCE on startup
 
   console.log(`The provider runs`);
   console.log(`userStatus`, userStatus);

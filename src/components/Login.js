@@ -16,6 +16,7 @@ const Login = () => {
   } = useContext(UserContext);
 
   const onSubmit = async (data) => {
+    
     const res = await loginUser(data);
     if (!res.error) {
       setUserInfo(res);
@@ -39,14 +40,17 @@ const Login = () => {
               name="email"
               defaultValue="vas@gmail.com"
               ref={register({
-                required: true,
+                required: "Please put your email sir.",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Email is invalid. Please fix"
+                }
               })}
             />
             <div className="error-message">
-              {errors.email && (
-                <span>Please put your email sir.</span>
-              )}
+            {errors.email && <span>{errors.email.message}</span>}
             </div>
+
             <label>password</label>
 
             <input
@@ -54,15 +58,15 @@ const Login = () => {
               defaultValue="0123456789"
               type="password"
               ref={register({
-                required: true,
+                required: "Required",
+                minLength: {
+                  value: 10,
+                  message: "Password must be at least 10 characters"
+                }
               })}
             />
             <div className="error-message">
-              {errors.password && (
-                <span>
-                  And you might need a password as well.
-                </span>
-              )}
+            {errors.password && <span>{ errors.password.message }</span>}
             </div>
           </div>
 

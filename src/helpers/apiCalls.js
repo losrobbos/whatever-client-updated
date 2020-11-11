@@ -1,4 +1,4 @@
-const url = `http://localhost:3000`;
+const url = `http://localhost:5000`; // backend base url
 
 export const loginUser = async (data) => {
   try {
@@ -9,7 +9,7 @@ export const loginUser = async (data) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
+        credentials: 'include', // send along stored cookies => token
       })
     ).json();
 
@@ -19,6 +19,10 @@ export const loginUser = async (data) => {
   }
 };
 
+/**
+ * Check if we are authenticated against the backend
+ * by calling a PROTECTED route
+ */
 export const authenticateUser = async () => {
   try {
     const res = await (
@@ -27,7 +31,7 @@ export const authenticateUser = async () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
+        credentials: 'include', // send in cookies (=> token)
       })
     ).json();
 
@@ -50,8 +54,14 @@ export const signUpUser = async (data) => {
       })
     ).json();
 
+    console.log(res)
+
     return res;
-  } catch (error) {
+  } 
+  // catch route is NOT called on error responses from the backend
+  // like 404 and 500
+  catch (error) {
+    console.log(error)
     return [];
   }
 };
@@ -59,7 +69,7 @@ export const signUpUser = async (data) => {
 export const logOut = async (data) => {
   try {
     const res = await (
-      await fetch(`${url}/users/logOut`, {
+      await fetch(`${url}/users/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

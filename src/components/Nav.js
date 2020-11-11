@@ -84,7 +84,7 @@ const Nav = () => {
             </li>
           )}
           {userStatus && (
-            <li class="signOut">
+            <li className="signOut">
               <FontAwesomeIcon
                 onClick={() => logOutUser()}
                 icon={faSignOutAlt}
